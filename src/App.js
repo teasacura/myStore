@@ -1,28 +1,36 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import Home from './Home';
+import Login from './components/Login';
+import Profile from './components/Profile';
 import './App.css';
 
 class App extends Component {
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+        <Switch>
+          <Route exact path="/" component={Home}/>
+          <Route path="/login" component={Login} />
+          <Route path="/profile" component={Profile} />
+        </Switch>
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    cards: state.cards
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    addCard: () => dispatch({type: 'ADD_CARD'})
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
