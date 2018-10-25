@@ -5,6 +5,13 @@ export function loginUser(user) {
   }
 }
 
+export function logoutUser() {
+  return {
+    type: "LOGOUT_USER",
+    payload: {}
+  }
+}
+
 export function addCard(card) {
   return {
     type: "ADD_CARD",

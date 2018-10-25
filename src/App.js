@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import Home from './Home';
 import Login from './components/Login';
 import Profile from './components/Profile';
+import NavBar from './components/NavBar';
 import './App.css';
 
 class App extends Component {
@@ -11,10 +12,11 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+          <Route path="/" component={NavBar} />
         <Switch>
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/profile" render={() => this.props.loggedIn ? <Profile /> : <Login />} />
           <Route exact path="/" component={Home}/>
-          <Route path="/login" component={Login} />
-          <Route path="/profile" component={Profile} />
         </Switch>
       </div>
     );
@@ -23,7 +25,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    cards: state.cards
+    cards: state.cards,
+    loggedIn: state.loggedIn
   };
 };
 
